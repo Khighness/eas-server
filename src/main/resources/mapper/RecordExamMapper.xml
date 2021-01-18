@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.parak.examarrangementsystem.mapper.RecordExamMapper">
+
+    <resultMap id="RecordExamMap" type="top.parak.examarrangementsystem.entity.RecordExam">
+        <id column="e_id" property="id"></id>
+        <result column="e_serial_number" property="serialNumber"></result>
+        <result column="e_name" property="name"></result>
+        <result column="e_sponsor" property="sponsor"></result>
+        <result column="e_start_time" property="startTime" javaType="java.util.Date"></result>
+        <result column="e_end_time" property="endTime" javaType="java.util.Date"></result>
+        <result column="e_science_examinee_number" property="scienceExamineeNumber"></result>
+        <result column="e_liberal_arts_examinee_number" property="liberalArtsExamineeNumber"></result>
+        <result column="e_science_room_number" property="scienceRoomNumber"></result>
+        <result column="e_liberal_arts_room_number" property="liberalArtsRoomNumber"></result>
+        <result column="e_arranged" property="arranged"></result>
+        <result column="e_gmt_create" property="gmtCreate"></result>
+        <result column="e_gmt_update" property="gmtUpdate"></result>
+        <collection property="recordExamSubjectList" ofType="top.parak.examarrangementsystem.entity.RecordExamSubject">
+            <id column="s_id" property="id"></id>
+            <id column="s_serial_number" property="serialNumber"></id>
+            <id column="s_name" property="name"></id>
+            <id column="s_start_time" property="startTime"></id>
+            <id column="s_end_time" property="endTime"></id>
+        </collection>
+    </resultMap>
+
+    <select id="getRecordExamById" resultMap="RecordExamMap">
+        SELECT
+            e.id as e_id,
+            e.serial_number as e_serial_number,
+            e.name as e_name,
+            e.sponsor as e_sponsor,
+            e.start_time as e_start_time,
+            e.end_time as e_end_time,
+            e.science_examinee_number as e_science_examinee_number,
+            e.liberal_arts_examinee_number as e_liberal_arts_examinee_number,
+            e.science_room_number as e_science_room_number,
+            e.liberal_arts_room_number as e_liberal_arts_room_number,
+            e.arranged as e_arranged,
+            e.gmt_create as e_gmt_create,
+            e.gmt_update as e_gmt_update,
+            s.id as s_id,
+            s.serial_number as s_serial_number,
+            s.name as s_name,
+            s.start_time as s_start_time,
+            s.end_time as s_end_time
+        FROM record_exam e, record_exam_subject s
+        WHERE e.deleted = 0
+        AND e.id = #{id}
+        AND e.id = s.record_exam_id
+    </select>
+
+    <select id="getRecordExamList" resultMap="RecordExamMap" resultType="list">
+        SELECT
+            e.id as e_id,
+            e.serial_number as e_serial_number,
+            e.name as e_name,
+            e.sponsor as e_sponsor,
+            e.start_time as e_start_time,
+            e.end_time as e_end_time,
+            e.science_examinee_number as e_science_examinee_number,
+            e.liberal_arts_examinee_number as e_liberal_arts_examinee_number,
+            e.science_room_number as e_science_room_number,
+            e.liberal_arts_room_number as e_liberal_arts_room_number,
+            e.arranged as e_arranged,
+            e.gmt_create as e_gmt_create,
+            e.gmt_update as e_gmt_update,
+            s.id as s_id,
+            s.serial_number as s_serial_number,
+            s.name as s_name,
+            s.start_time as s_start_time,
+            s.end_time as s_end_time
+        FROM record_exam e
+        LEFT JOIN record_exam_subject s ON e.id = s.record_exam_id
+        WHERE e.deleted = 0
+        ORDER BY s.id
+    </select>
+
+</mapper>
