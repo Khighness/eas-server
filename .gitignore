@@ -1,7 +1,8 @@
 ### Java
 
 /target/
-
+.class
+*.log
 
 ### STS
 
@@ -15,8 +16,8 @@
 
 
 ### IntelliJ IDEA
-
-.idea
+z
+.idea/
 .out
 *.iws
 *.iml
