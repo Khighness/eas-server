@@ -1,13 +1,14 @@
-package top.parak.examarrangementsystem.dto;
+package top.parak.examarrangementsystem.dto.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import top.parak.examarrangementsystem.dto.RecordGroupInvigilatorDTO;
+import top.parak.examarrangementsystem.dto.RecordSubmitExamPlaceInvigilatorDTO;
+import top.parak.examarrangementsystem.dto.RecordSubmitExamPlaceRoomDTO;
 import top.parak.examarrangementsystem.entity.*;
 import top.parak.examarrangementsystem.util.TimeUtils;
-
-import java.sql.Time;
 
 /**
  * <p> Project: examArrangementSystem </p>
@@ -41,7 +42,6 @@ public interface RecordGroupInvigilatorConverter {
             @Mapping(source = "recordSubmitExamPlaceInvigilatorDTO.invigilatorSerialNumber", target = "invigilatorSerialNumber"),
             @Mapping(source = "recordSubmitExamPlaceInvigilatorDTO.main", target = "main")
     })
-
     RecordGroupInvigilatorDTO entityDtoDTO(RecordExam recordExam,
                                            RecordExamSubjectInvigilatorGroup recordExamSubjectInvigilatorGroup,
                                            RecordTaskExamInvigilator recordTaskExamInvigilator,

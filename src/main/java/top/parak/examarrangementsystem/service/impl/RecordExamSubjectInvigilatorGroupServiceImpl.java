@@ -2,16 +2,14 @@ package top.parak.examarrangementsystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import top.parak.examarrangementsystem.dto.RecordGroupInvigilatorConverter;
+import top.parak.examarrangementsystem.dto.converter.RecordGroupInvigilatorConverter;
 import top.parak.examarrangementsystem.dto.RecordGroupInvigilatorDTO;
 import top.parak.examarrangementsystem.dto.RecordSubmitExamPlaceInvigilatorDTO;
 import top.parak.examarrangementsystem.dto.RecordSubmitExamPlaceRoomDTO;
 import top.parak.examarrangementsystem.entity.*;
 import top.parak.examarrangementsystem.mapper.*;
 import top.parak.examarrangementsystem.service.RecordExamSubjectInvigilatorGroupService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import top.parak.examarrangementsystem.service.RecordExamSubjectService;
 import top.parak.examarrangementsystem.service.RecordSubmitExamPlaceInvigilatorService;
 import top.parak.examarrangementsystem.service.RecordSubmitExamPlaceRoomService;
 

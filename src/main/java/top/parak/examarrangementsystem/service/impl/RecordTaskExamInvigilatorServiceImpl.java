@@ -1,14 +1,13 @@
 package top.parak.examarrangementsystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.apache.poi.hssf.record.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import top.parak.examarrangementsystem.dto.*;
+import top.parak.examarrangementsystem.dto.converter.RecordGroupInvigilatorConverter;
 import top.parak.examarrangementsystem.entity.*;
 import top.parak.examarrangementsystem.mapper.*;
 import top.parak.examarrangementsystem.service.*;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
