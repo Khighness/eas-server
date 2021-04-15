@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class IPParseUtils {
 
-
     /**
      * <P>当我们通过request获取客户端IP时，自身服务器通常会为了保护信息或者负载均衡的目的，对自身服务器做反向代理。
      * 此时通过request.getRemoteAddr()可能获取到的是自身代理服务器的IP，而无法获取到用户请求ip的真实ip。</P>

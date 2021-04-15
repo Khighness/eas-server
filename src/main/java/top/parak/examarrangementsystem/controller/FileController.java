@@ -1,5 +1,7 @@
 package top.parak.examarrangementsystem.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.IOUtils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import io.swagger.annotations.Api;
@@ -35,6 +37,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p> Project: examArrangementSystem </p>
@@ -164,7 +169,7 @@ public class FileController {
      */
     @ApiOperation(value = "下载文件")
     @GetMapping("/file/download")
-    public void downloadFile(@RequestParam("file") String fileName, HttpServletResponse response) {
+    public void downloadFile(@RequestParam("static") String fileName, HttpServletResponse response) {
         String urlStr = "http://" + qiNiuCloudConfigure.getDomain() + "/" + fileName;
         try {
             response.reset();
@@ -188,5 +193,41 @@ public class FileController {
             log.error(e.getMessage());
         }
     }
+
+    @PostMapping("/file/upload")
+    public void uploafFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) throws IOException {
+        String suffix = FileUtils.getFileSuffix(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        String dir = System.getProperty("user.dir");
+        String avatarName = "file_" + SnowFlakeIDUtils.nextID() + suffix;
+        String file = dir + "/file/" + avatarName;
+        InputStream inputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            inputStream = multipartFile.getInputStream();
+            fileOutputStream = new FileOutputStream(file);
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while ((len = inputStream.read(buffer)) != - 1) {
+                fileOutputStream.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        } finally {
+            try {
+                assert inputStream != null;
+                inputStream.close();
+                assert fileOutputStream != null;
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("code", 200);
+        map.put("msg", "上传成功");
+        JSONObject jsonObject = new JSONObject(map);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().println(jsonObject);
+    };
 
 }

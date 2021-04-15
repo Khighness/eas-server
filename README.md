@@ -8,9 +8,9 @@
 
 💠打包：`maven package`
 
-🌈生成：`docker -t build eas .`
+🌈生成：`docker build -t eas .`
 
-🌠运行：`dokcker run -d -p 3333:3333 --name eas eas`
+🌠运行：`docker run -d -p 3333:3333 --name eas eas`
 
 
 
@@ -41,12 +41,35 @@
 
 ```shell
 $ docker pull mysql:8.0.20
-$ mkdir -p /home/sql/mysql/data /home/sql/mysql/conf
-$ docker run --name mysql -d -p 3306:3306 -v /home/sql/mysql/conf:/etc/mysql/conf.d -v /home/sql/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=<password> mysql:8.0.20
-$ docker exec -it ksql  bash
-$ mysql -u root -pKAG1823
+$ mkdir -p /home/mysql/data /home/mysql/conf
+$ docker run --name mysql -d -p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=<password> mysql:8.0.20
+$ docker cp mysql:/etc/mysql/my.cnf /home/mysql/conf
+# ADD
+[mysqld]
+character-set-server=utf8
+[client]
+default-character-set=utf8
+[mysql]
+default-character-set=utf8
+$ docker stop mysql && docker rm mysql
+$ docker run --name mysql \
+-d -p 3306:3306  \
+-e MYSQL_ROOT_PASSWORD=<password> \
+--mount type=bind,src=/home/mysql/conf/my.cnf,dst=/etc/mysql/my.cnf \
+--mount type=bind,src=/home/mysql/data,dst=/var/lib/mysql \
+--restart=on-failure:3 \
+ mysql:8.0.20
+$ docker exec -it mysql bash
+$ mysql -u root -p<password>
 $ ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '<password>';
 ```
+
+
+
+
+
+
 
 
 
@@ -54,10 +77,10 @@ $ ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '<password>';
 > 部署Redis
 
 ```shell
-$ mkdir -p /home/redis/node1/data /home/redis/node1/conf
-$ cd /home/redis/node1/conf
+$ mkdir -p /home/redis/data /home/redis/conf
+$ cd /home/redis/conf
 $ touch redis.conf
-$ cat << EOF >>/home/redis/node1/conf/redis.conf
+$ cat << EOF >>/home/redis/conf/redis.conf
 port 6379
 #bind 0.0.0.0
 daemonize NO
@@ -70,7 +93,11 @@ cluster-announce-port 6379
 cluster-announce-bus-port 16379
 appendonly yes
 EOF
-$ docker run -d -p 6379:6379 --name redis -v /home/redis/node1/data:/data -v /home/redis/node1/conf/redis.conf:/etc/redis/redis.conf redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+$ docker run -d -p 6379:6379 --name redis \
+-v /home/redis/data:/data \
+-v /home/redis/conf/redis.conf:/etc/redis/redis.conf \
+--requirepass '<password>'
+redis:5.0.9-alpine3.11 
 ```
 
 

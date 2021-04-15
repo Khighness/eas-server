@@ -99,7 +99,7 @@ public class RecordExamPlaceInvigilatorController {
      */
     @ApiOperation(value = "考务人员上传照片", notes = "需要监考考务人员近期照片")
     @PostMapping("/photo")
-    public ServerResponse updateRecordExamPlaceInvigilatorPhoto(@RequestParam("file") MultipartFile multipartFile,
+    public ServerResponse updateRecordExamPlaceInvigilatorPhoto(@RequestParam("static") MultipartFile multipartFile,
                                                                 @RequestParam("examId") Long examId,
                                                                 HttpServletRequest request) {
         /* 解析token */

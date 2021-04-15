@@ -39,7 +39,7 @@ public class JWTInterceptor implements HandlerInterceptor {
         Map<String, Object> map = new HashMap<>();
         try {
             DecodedJWT decodedJWT = JWTUtils.verifyToken(token);
-            log.info("Email Exception => [{}]", decodedJWT.getClaim("email").asString());
+            log.info("Email => [{}]", decodedJWT.getClaim("email").asString());
             return true;
         } catch (TokenExpiredException e) {
             log.error("令牌解析异常 => [{}]", e.getMessage());

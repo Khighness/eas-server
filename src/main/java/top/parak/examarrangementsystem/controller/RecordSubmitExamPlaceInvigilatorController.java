@@ -49,8 +49,8 @@ public class RecordSubmitExamPlaceInvigilatorController {
 
     @PostMapping("/save")
     public ServerResponse saveRecordSubmitExamPlaceInvigilator(@RequestParam("invigilatorId") Long recordExamPlaceInvigilatorId,
-                                                        @RequestParam("taskId") Long taskId,
-                                                        HttpServletRequest request) {
+                                                               @RequestParam("taskId") Long taskId,
+                                                               HttpServletRequest request) {
         /* 解析Token */
         DecodedJWT decodedJWT = JWT.decode(request.getHeader("Authorization"));
         Long id = decodedJWT.getClaim("id").asLong();
@@ -70,8 +70,8 @@ public class RecordSubmitExamPlaceInvigilatorController {
 
     @PostMapping("/saveBatch")
     public ServerResponse saveBatchRecordSubmitExamPlaceInvigilator(@RequestBody List<Long> idList,
-                                                             @RequestParam("taskId") Long taskId,
-                                                             HttpServletRequest request) {
+                                                                    @RequestParam("taskId") Long taskId,
+                                                                    HttpServletRequest request) {
         /* 解析Token */
         DecodedJWT decodedJWT = JWT.decode(request.getHeader("Authorization"));
         Long id = decodedJWT.getClaim("id").asLong();

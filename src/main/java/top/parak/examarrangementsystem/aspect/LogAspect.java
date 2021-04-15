@@ -1,7 +1,5 @@
 package top.parak.examarrangementsystem.aspect;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;

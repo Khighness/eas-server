@@ -62,7 +62,7 @@ public class RecordSubmitExamPlacePlanController {
      */
     @ApiOperation(value = "提交考点平面图", notes = "需要考点平面图文件和考点任务ID")
     @PostMapping("/upload")
-    public ServerResponse uploadExamPlacePlan(@RequestParam("file") MultipartFile multipartFile,
+    public ServerResponse uploadExamPlacePlan(@RequestParam("static") MultipartFile multipartFile,
                                               @RequestParam("taskId") Long taskId,
                                               HttpServletRequest request) {
         /* 文件校验 */
