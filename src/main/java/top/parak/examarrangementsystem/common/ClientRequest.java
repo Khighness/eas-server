@@ -1,4 +1,4 @@
-package top.parak.examarrangementsystem.aspect;
+package top.parak.examarrangementsystem.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

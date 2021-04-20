@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import top.parak.examarrangementsystem.dto.ExamPlaceAdminDTO;
 import top.parak.examarrangementsystem.dto.converter.ExamPlaceAdminConverter;
@@ -31,6 +33,7 @@ import java.util.List;
  * @since 2021/1/1
  */
 
+@EnableTransactionManagement
 @Service
 public class ExamPlaceAdminServiceImpl implements ExamPlaceAdminService {
 
@@ -52,6 +55,7 @@ public class ExamPlaceAdminServiceImpl implements ExamPlaceAdminService {
     @Value("${default.examPlaceAdmin.roleId}")
     private Integer examPlaceAdminDefaultRoleId;
 
+    @Transactional
     @Override
     public int saveExamPlaceAdmin(ExamPlaceAdmin examPlaceAdmin) {
         examPlaceAdmin.setPassword(EncryptUtils.encryptByMD5(examPlaceAdmin.getPassword()));

@@ -17,7 +17,7 @@ class RedisUtilsTest {
 
     @Test
     void add() {
-        redisTemplate.opsForValue().set("eas:test:1", "1", 100, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("eas:test:1", "1", 10, TimeUnit.SECONDS);
         redisTemplate.opsForValue().set("eas:test:2", "2");
     }
 

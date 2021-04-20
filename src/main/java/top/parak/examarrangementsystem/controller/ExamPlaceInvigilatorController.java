@@ -152,6 +152,11 @@ public class ExamPlaceInvigilatorController {
         /* 校验邮箱验证码 */
         String key = "eas:" + "examPlaceInvigilator:" + email;
         Long expire = redisTemplate.opsForValue().getOperations().getExpire(key);
+        /**
+         * expire > 0，代表有效时间
+         * expire = -1，代表永久
+         * expire = -2，代表国企
+         */
         if (expire == -2) {
             return ServerResponse.clientErrorResponse("验证码无效");
         } else if (expire >= 1) {

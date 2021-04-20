@@ -1,7 +1,6 @@
 package top.parak.examarrangementsystem.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.util.IOUtils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import io.swagger.annotations.Api;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+import top.parak.examarrangementsystem.annotation.Permission;
+import top.parak.examarrangementsystem.common.PermissionType;
 import top.parak.examarrangementsystem.common.ServerResponse;
 import org.springframework.web.multipart.MultipartFile;
 import top.parak.examarrangementsystem.common.HttpStatus;
